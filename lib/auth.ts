@@ -14,8 +14,7 @@ export const authOptions : NextAuthOptions = {
                 password:{label:"Password",type:"password"}
             },
             async authorize(credentials){
-                // This is where you need to retrieve user data
-                // to verify with credentials
+                
                 if(!credentials?.email || !credentials?.password){
                     throw new Error("Missing credentials")
                 }
@@ -38,6 +37,7 @@ export const authOptions : NextAuthOptions = {
                         email:user.email,
                     }
                 } catch (error) {
+                    console.log(error)
                     throw new Error("Error authenticating user")
                 }
             }

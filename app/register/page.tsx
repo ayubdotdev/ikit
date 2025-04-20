@@ -6,7 +6,7 @@ import { useNotification } from "../components/Notification";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { AuroraBackground } from "../components/ui/aurora-background";
-import { Lock, Mail, User } from "lucide-react";
+import { Lock, Mail } from "lucide-react";
 
 export default function Register() {
   const [email, setEmail] = useState("");
