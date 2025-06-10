@@ -1,9 +1,7 @@
 import { IVideo } from "@/models/Video";
 import VideoComponent from "./VideoComponent";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { Eye, Lock } from "lucide-react";
 
 interface VideoFeedProps {
   videos: IVideo[];
@@ -43,7 +41,6 @@ export default function VideoFeed({ videos }: VideoFeedProps) {
             >
             
               
-              {/* Video Info */}
               <div className="mt-3 space-y-2">
                 <h3 className="text-white font-medium text-sm line-clamp-2">
                   {video.title}

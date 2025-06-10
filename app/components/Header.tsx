@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
-import { Home, User, Sparkles, Video, Upload } from 'lucide-react';
+import {  User, Sparkles, Upload } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNotification } from './Notification';
 
