@@ -13,21 +13,6 @@ export default function VideoFeed({ videos }: VideoFeedProps) {
   if (!session) {
     return (
       <div className="space-y-8">
-        {/* Preview Header */}
-        <motion.div 
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Discover Amazing Content
-          </h2>
-          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Get a glimpse of what's waiting for you. Sign up to watch full videos and share your own!
-          </p>
-        </motion.div>
-
         {/* Video Grid with Overlay */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {videos.slice(0, 8).map((video, index) => (
