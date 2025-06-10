@@ -42,12 +42,15 @@ export const Vortex = (props: VortexProps) => {
   let particleProps = new Float32Array(particlePropsLength);
   let center: [number, number] = [0, 0];
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const HALF_PI: number = 0.5 * Math.PI;
   const TAU: number = 2 * Math.PI;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const TO_RAD: number = Math.PI / 180;
   const rand = (n: number): number => n * Math.random();
   const randRange = (n: number): number => n - rand(2 * n);
   const fadeInOut = (t: number, m: number): number => {
+    // eslint-disable-next-line prefer-const
     let hm = 0.5 * m;
     return Math.abs(((t + hm) % m) - hm) / hm;
   };
@@ -82,6 +85,7 @@ export const Vortex = (props: VortexProps) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    // eslint-disable-next-line prefer-const
     let x, y, vx, vy, life, ttl, speed, radius, hue;
 
     x = rand(canvas.width);
@@ -187,6 +191,7 @@ export const Vortex = (props: VortexProps) => {
 
   const resize = (
     canvas: HTMLCanvasElement,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _ctx?: CanvasRenderingContext2D
   ) => {
     const { innerWidth, innerHeight } = window;
@@ -225,6 +230,7 @@ export const Vortex = (props: VortexProps) => {
     ctx.restore();
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     setup();
     const handleResize = () => {
