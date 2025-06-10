@@ -22,7 +22,10 @@ export default {
         },
       },
       colors: {
-        "site-bg": "#0a0a0a",
+        border: "hsl(var(--border))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        "site-bg": "#000000",
       },
     },
   },

@@ -1,7 +1,9 @@
+
+'use client'
 import React from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
-import { Home, User } from 'lucide-react';
+import { Home, User, Sparkles, Video, Upload } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNotification } from './Notification';
 
@@ -13,76 +15,103 @@ export default function Header() {
     try {
       await signOut();
       showNotification("Signed out successfully", "success");
+
     } catch {
       showNotification("Failed to sign out", "error");
     }
   };
 
   return (
-    <motion.div
-      className="navbar border border-gray-600 rounded-md bg-base-300/80 backdrop-blur-sm sticky top-0 z-40 shadow-sm text-white"
-      initial={{ y: -20, opacity: 0 }}
+    <motion.nav
+      className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-xl border-b border-white/10 shadow-2xl"
+      initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="sm:text-sm  container mx-auto rounded-sm px-4 w-full max-w-screen-xl">
-        <div className="flex-1 px-2 lg:flex-none flex flex-wrap items-center">
-          <motion.div whileHover={{ scale: 1.02 }}>
-            <Link
-              href="/"
-              className="btn btn-ghost text-lg sm:text-base gap-2 normal-case font-bold flex items-center"
-              prefetch={true}
-              onClick={() => showNotification("Welcome to ImageKit ReelsPro", "info")}
-            >
-              <motion.div whileHover={{ rotate: 180 }} transition={{ duration: 0.3 }}>
-                <Home className="flex text-white flex-row w-5 h-5" />
+      <div className="container mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          {/* Logo/Brand */}
+          <motion.div 
+            className="flex items-center space-x-3"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link href="/" className="flex items-center space-x-3 group">
+              <motion.div 
+                className="relative"
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.6 }}
+              >
+                <Sparkles className="w-8 h-8 text-purple-400" />
+                <motion.div
+                  className="absolute inset-0 bg-purple-400/20 rounded-full blur-sm"
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
               </motion.div>
-              <span className="truncate text-white max-w-[150px] sm:max-w-none">IKit Reels</span>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                  VORTEX
+                </span>
+              
+              </div>
             </Link>
           </motion.div>
-        </div>
-
-        <div className="flex flex-1 justify-end px-2">
-          <div className="flex items-stretch gap-2">
-            {session && (
+          {/* User Menu */}
+          <div className="flex items-center space-x-4">
+            {session ? (
               <div className="dropdown dropdown-end">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+                <motion.div 
+                  whileHover={{ scale: 1.05 }} 
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center space-x-3 cursor-pointer"
+                >
+                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
                     <User className="w-5 h-5 text-white" />
                   </div>
+                  <span className="text-white font-medium hidden sm:block">
+                    {session.user?.email?.split("@")[0]}
+                  </span>
                 </motion.div>
 
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-[1] shadow-lg bg-base-100/95 backdrop-blur-sm rounded-box w-64 mt-4 py-2"
-                >
-                  <li className="px-4 py-1">
-                    <span className="text-sm opacity-70 text-white">{session.user?.email?.split("@")[0]}</span>
+                <ul className="dropdown-content z-[1] shadow-2xl bg-black/90 backdrop-blur-xl rounded-xl w-64 mt-4 py-3 border border-white/10">
+                  <li className="px-4 py-2">
+                    <span className="text-sm text-gray-400">Welcome back!</span>
                   </li>
-                  <div className="divider my-1"></div>
+                  <div className="divider my-2 bg-white/10"></div>
                   <li>
                     <Link
                       href="/upload"
-                      className="px-4 py-2 hover:bg-base-200/80 block w-full"
-                      onClick={() => showNotification("Welcome to Admin Dashboard", "info")}
+                      className="px-4 py-3 hover:bg-white/10 block w-full transition-colors flex items-center space-x-3"
+                      onClick={() => showNotification("Welcome to Upload Studio", "info")}
                     >
-                      Video Upload
+                      <Upload className="w-4 h-4" />
+                      <span>Upload Video</span>
                     </Link>
                   </li>
                   <li>
                     <button
                       onClick={handleSignOut}
-                      className="px-4 py-2 text-error hover:bg-base-200/80 w-full text-left"
+                      className="px-4 py-3 text-red-400 hover:bg-red-500/10 w-full text-left transition-colors flex items-center space-x-3"
                     >
-                      Sign Out
+                      <span>Sign Out</span>
                     </button>
                   </li>
                 </ul>
               </div>
+            ) : (
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link 
+                  href="/login" 
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all"
+                >
+                  Sign In
+                </Link>
+              </motion.div>
             )}
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.nav>
   );
 }

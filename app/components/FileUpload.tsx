@@ -3,7 +3,8 @@
 import { IKUpload } from "imagekitio-next";
 import { IKUploadResponse } from "imagekitio-next/dist/types/components/IKUpload/props";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Upload, Video, Image } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface FileUploadProps {
   onSuccess: (res: IKUploadResponse) => void;
@@ -67,7 +68,7 @@ export default function FileUpload({
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       <IKUpload
         fileName={fileType === "video" ? "video" : "image"}
         onError={onError}
@@ -75,20 +76,40 @@ export default function FileUpload({
         onUploadStart={handleStartUpload}
         onUploadProgress={handleProgress}
         accept={fileType === "video" ? "video/*" : "image/*"}
-        className="file-input file-input-bordered w-full"
+        className="block w-full text-sm text-gray-400
+                   file:mr-4 file:py-2 file:px-4
+                   file:rounded-md file:border-0
+                   file:text-sm file:font-medium
+                   file:bg-gradient-to-r file:from-purple-500 file:to-pink-500 file:text-white
+                   hover:file:shadow-lg hover:file:shadow-purple-500/25 file:cursor-pointer file:transition-all
+                   bg-black/50 border border-white/20 rounded-lg py-4 px-4 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all
+                   overflow-hidden text-ellipsis whitespace-nowrap min-h-[56px]"
         validateFile={validateFile}
         useUniqueFileName={true}
         folder={fileType === "video" ? "/videos" : "/images"}
       />
 
       {uploading && (
-        <div className="flex items-center gap-2 text-sm text-primary">
+        <motion.div 
+          className="flex items-center gap-2 text-sm text-purple-400"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           <Loader2 className="w-4 h-4 animate-spin" />
           <span>Uploading...</span>
-        </div>
+        </motion.div>
       )}
 
-      {error && <div className="text-error text-sm">{error}</div>}
+      {error && (
+        <motion.div 
+          className="text-red-400 text-sm flex items-center space-x-1 bg-red-500/10 border border-red-500/20 rounded-lg p-3"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <span>⚠</span>
+          <span>{error}</span>
+        </motion.div>
+      )}
     </div>
   );
 }

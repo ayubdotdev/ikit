@@ -24,7 +24,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     setNotification({ message, type, id });
     setTimeout(() => {
       setNotification((current) => (current?.id === id ? null : current));
-    }, 3000);
+    }, 5000);
   };
 
   return (
