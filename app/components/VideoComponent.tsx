@@ -39,7 +39,7 @@ export default function VideoComponent({ video }: { video: IVideo }) {
       </div>
 
       <div className="p-4">
-        <Link href={`/videos/${video._id}`}>
+        <Link href={'/videos'}>
           <motion.h2
             whileHover={{ color: "#a855f7" }}
             initial={{ opacity: 0, y: 20 }}
